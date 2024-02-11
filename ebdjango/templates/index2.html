@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <title>比特幣線上交易機器人</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        
+        #sidebar {
+            width: 85%;
+            margin-left: 7.5%;
+            margin-right: 7.5%;
+            
+        }
+        #word{
+                font-size: 0.5rem;
+            }
+        
+        #content {
+            width: 90%;
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 10%;
+            float: bottom;
+        }
+        #home {
+            position: relative;
+            height: 500px;
+            width: 100%;     
+        }
+        #menu1 {
+            position: relative;
+            height: 500px;
+            width: 100%;     
+        }
+        #menu2 {
+            position: relative;
+            height: 500px;
+            width: 100%;     
+        }
+    
+        .plotly-graph-div{
+            position: absolute;
+        }
+
+        
+        @media screen and (min-width: 600px) {
+            #sidebar {
+                width: 20%;
+                float: right;
+                margin-right:9%;
+            }
+            #word{
+                font-size: 1rem;
+            }
+            #content {
+                width: 60%;
+                margin-left:9%;
+                margin-right:2%;
+                margin-top:0%
+            
+            }
+
+            #home {
+            position: relative;
+            height: 700px;
+            width: 100%;     
+            }
+            #menu1 {
+                position: relative;
+                height: 700px;
+                width: 100%;     
+            }
+            #menu2 {
+                position: relative;
+                height: 700px;
+                width: 100%;     
+            }
+        
+            .plotly-graph-div{
+                position: absolute;
+
+            }
+ 
+        }
+    </style>
+    <style>
+        .bg-black{
+            background-color:rgb(0,0,0);}
+        .loader {
+            display: block;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top:30%;
+            left:50%;
+            z-index:9 ;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+            
+        }
+        /* Safari */
+        
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!--引用自己的js-->
+    {%load static %}
+    <script src="{% static "myapp/index2.js" %}"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-black navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/home/">比特幣線上交易機器人</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/fv/">回測系統</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/real/">自動交易系統</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+
+        <div id="sidebar" >
+            <br>
+            <h3><b>比特幣交易回測<b></h3>
+            <br>
+           
+            <form>
+                <label for="strat">初始資金:</label><br>
+                <input id= "startequity" type="text"><br>
+                
+                <label for="currency1">比特幣換算幣值:</label>
+                <select id="currency"  class="custom-select mb-3">
+                    <option unabled selected>Please Select</option>
+                    <option value="btc_twd" >NTD</option>
+                    <option value="btc_usdt">USDT</option>
+                </select>
+            
+                <label for="strategy1">交易策略:</label>
+                <select id="strategy" name="strategy" class="custom-select mb-3">
+                    <option unabled selected>Please Select</option>
+                    <option value="BBands">布林通道</option>
+                    <option value="MA_RSI">MA+RSI</option>
+                    <option value="KD">KD</option>
+                </select>
+            
+                <label for="resolution">時間精細度:</label>
+                <select id="resolution"  class="custom-select mb-3">
+                    <option unabled selected>Please Select</option>
+                    <option value="1m" >1 分鐘</option>
+                    <option value="5m" >5 分鐘</option>
+                    <option value="15m" >15 分鐘</option>
+                    <option value="1h" >1 小時</option>
+                    <option value="1d" >1 天</option>
+                    <option value="1w" >1 周</option>
+                </select>
+                
+                <label for="date">回測期間:</label><br>
+                <input type="date" id="date1">
+                <pre>         ▼</pre>
+                <input type="date" id="date2"><br>
+                
+                <button type="button" id= "btn" style= 'margin-top:5%'>送出
+            </form>
+        </div>
+
+        <!--左邊欄位-->
+        <div id="content" >
+            <h3><b>比特幣回測報告<b></h3>
+
+                <br>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li id="a1" class="nav-item ">
+                        <a id= "b1" class="nav-link" data-toggle="tab" href="#home">績效表現</a>
+                    </li>
+                    <li id="a2" class="nav-item">
+                        <a id= "b2" class="nav-link" data-toggle="tab" href="#menu1">交易時點</a>
+                    </li>
+                    <li id="a3" class="nav-item">
+                        <a id= "b3" class="nav-link" data-toggle="tab" href="#menu2">交易總表</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                
+                <div id=tab class="tab-content justify-content-start">
+                        <div id="home" class="tab-pane active">
+                            <div id="load" class="loader" style=display:None></div>
+                            <div id="result2"></div>
+                        </div>
+                        <div id="menu1" class="tab-pane ">
+                            <div id="load1" class="loader" style=display:None></div>
+                            <div id="result3"></div>
+                        </div>
+                        <div id="menu2" class="tab-pane"><br>
+                                <h3>交易總表</h3>
+                                <div id="result4"></div>
+                            <div id="load2" class="loader" style=display:None></div>
+                        </div>  
+                </div>
+            <hr>
+            <h5>回測結果:</h5>
+            <div id="result"></div>
+            <br>
+            <br> 
+        </div>
+
+        
+
+        <div id='down' class="w3-cell-row"  > 
+            <span id= "word" style="font-family:Microsoft JhengHei">
+              <div class="w3-container w3-black w3-cell" style="width:33.3%;">
+                <div style="color:white;">
+                <div class="w3-left" style="margin-bottom:10%"><p><h5>均線+RSI</h5></p><br>
+                    ◆ Moving Average，也就是所謂的移動平均線，代表一段時間內收盤價的平均價格<br>
+                    ◆ RSI: 當該指數大於50價格有較大機率上升，反之下降<br>
+                    1.黃金交叉：比特幣價格向上與均線交叉，稱為黃金交叉，為買入信號<br>
+                    2.死亡交叉：比特幣價格向下與均線交叉，稱為死亡交叉，為賣出信號<br>
+      
+                </div></div></div>
+                <div class="w3-container w3-white w3-cell" style="width:33.3%;" >
+                <div class="w3-left"style="margin-bottom:10%"><p><h5>布林通道</h5></p><br>
+                    ◆ 布林通道又稱 (Bollinger Bands，BBands)<br>
+                    ◆ 結合了移動平均線和統計學的標準差常態分布的概念<br> 
+                    ◆ 計算比特幣價錢未來收斂與發散的信號，作為交易時機的信號<br>
+                    ◆ 適合短時間(小於5分鐘)交易
+                </div></div>
+                                    
+                <div class="w3-container w3-black w3-cell" style="width:33.3%; ">
+                <div style="color:white;">
+                <div class="w3-left"style="margin-bottom:10%"><p><h5>KD</h5></p><br>
+                    ◆ 由RSV值（當天收盤價在 n日區間內是否為相對高點或低點）、K值（RSV之加權移動平均）、D值（K值之加權移動平均）組成<br>
+                 1.黃金交叉：K由下向上穿越D線，稱為黃金交叉，為買入信號<br>
+                 2.死亡交叉：K由上向下穿越D線，稱為死亡交叉，為賣出信號<br>
+                </div></div></div>
+            </span>
+        </div>
+</body>
+
+</html>

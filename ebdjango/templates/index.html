@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<!--
+	Hielo by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+{%load static %}
+<html>
+	<head>
+		<title>比特幣程式交易</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static "myapp/css/main.css" %}">
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/home/'>比特幣交易機器人 <span>by 台大工管</span></a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/home/'">Home</a></li>
+					<li><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/fv/'>回測系統</a></li>
+					<li><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/real/'>自動交易</a></li>
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section class="banner full">
+				<article>
+					<img src="{% static "myapp/images/slide01.jpg" %}" alt="" />
+					<div class="inner">
+						<header>
+							<p>歡迎來到</a></p>
+							<h2>比特幣線上交易機器人</h2>
+							<p>本網站採用Bitopro交易所API</p>
+						</header>
+					</div>
+				</article>
+				
+			</section>
+
+		<!-- One -->
+			<section id="one" class="wrapper style2">
+				<div class="inner">
+					<div class="grid-style">
+
+						<div>
+							<div class="box">
+								<div class="content">
+									<header class="align-center">
+										
+										<h2>回測系統</h2>
+									</header>
+									<p> 本網站機器人採用Bitopro交易所Api歷史資料進行分析，提供使用者精準的策略參考及績效指標</p>
+									<footer class="align-center">
+										<a class="button alt" id="btn" onclick="javascript:location.href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/fv/'">進入回測系統</a>
+									</footer>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<div class="box">
+								<div class="content">
+									<header class="align-center">
+										<h2>自動交易</h2>
+									</header>
+									<p>本網站機器人採用Bitopro交易所Api，ticker資料進行分析，提供使用者24小時連續機器自動交易</p>
+									<footer class="align-center">
+										<a class="button alt" id="btn" onclick="javascript:location.href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/real/'">進入即時交易</a>
+									</footer>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/home/' class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/home/' class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/home/' class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href='http://django-env.eba-petdxrwz.ap-northeast-1.elasticbeanstalk.com/home/' class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; Untitled. All rights reserved.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			{%load static %}
+			<script src="{% static "myapp/js/jquery.min.js" %}"></script>
+			<script src="{% static "myapp/js/jquery.scrollex.min.js" %}"></script>
+			<script src="{% static "myapp/js/skel.min.js" %}"></script>
+			<script src="{% static "myapp/js/util.js" %}"></script>
+			<script src="{% static "myapp/js/main.js" %}"></script>
+	</body>
+</html>
